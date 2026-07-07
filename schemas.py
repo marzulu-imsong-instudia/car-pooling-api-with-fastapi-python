@@ -39,6 +39,12 @@ class DriverBookingResponse(BaseModel):
     destination: str
     booking_progress: str
   
+class PassengerBookingResponse(BaseModel):
+    id: int
+    pickup_point: str
+    destination: str
+    booking_progress: str  
+  
 class Token(BaseModel):
     access_token: str
     token_type: str

@@ -115,3 +115,17 @@ def read_driver_bookings_me(current_user: models.User = Depends(get_current_user
         raise credentials_exception
     
     return current_driver_bookings
+
+@app.get("/bookings/passengers/me", response_model=schemas.PassengerBookingResponse)
+def read_driver_bookings_me(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
+    current_passenger_user = db.query(models.Passenger).filter(models.Passenger.user_id == current_user.id).first()
+    
+    if current_passenger_user is None:
+        raise credentials_exception
+    
+    current_driver_bookings = db.query(models.Booking).filter(models.Booking.passenger_id == current_passenger_user.id).first()
+    
+    if current_driver_bookings is None:
+        raise credentials_exception
+    
+    return current_driver_bookings
