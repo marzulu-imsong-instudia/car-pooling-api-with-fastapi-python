@@ -129,3 +129,32 @@ def read_driver_bookings_me(current_user: models.User = Depends(get_current_user
         raise credentials_exception
     
     return current_driver_bookings
+
+
+@app.get("/passengers/profile/me", response_model=schemas.PassengerProfileResponse)
+def read_passenger_profile(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
+    current_passenger_user = db.query(models.Passenger).filter(models.Passenger.user_id == current_user.id).first()
+    
+    if current_passenger_user is None:
+        raise credentials_exception
+    
+    passenger_profile = db.query(models.PassengerProfile).filter(models.PassengerProfile.passenger_id == current_passenger_user.id).first()
+    
+    if passenger_profile is None:
+        raise credentials_exception
+    
+    return passenger_profile
+
+@app.get("/drivers/profile/me", response_model=schemas.DriverProfileResponse)
+def read_passenger_profile(current_user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
+    current_driver_user = db.query(models.Driver).filter(models.Driver.user_id == current_user.id).first()
+    
+    if current_driver_user is None:
+        raise credentials_exception
+    
+    driver_profile = db.query(models.DriverProfile).filter(models.DriverProfile.driver_id == current_driver_user.id).first()
+    
+    if driver_profile is None:
+        raise credentials_exception
+    
+    return driver_profile

@@ -26,6 +26,20 @@ class Driver(Base):
     aadhaar_no: Mapped[str]
     car_no_plate: Mapped[str]
     
+class DriverProfile(Base):
+    __tablename__ = "driver_profiles"
+    
+    id: Mapped[int] = mapped_column(primary_key=True)
+    driver_id: Mapped[int] = mapped_column(ForeignKey("drivers.id", ondelete="CASCADE"))
+    first_name: Mapped[str]
+    last_name: Mapped[str]
+    pan_card_no: Mapped[str]
+    drivers_license: Mapped[str]
+    home_address: Mapped[str]
+    last_booking: Mapped[str] = mapped_column(ForeignKey("bookings.id", ondelete="CASCADE"))
+    aadhaar_no: Mapped[str]
+    car_no_plate: Mapped[str]
+    
 class Passenger(Base):
     __tablename__ = "passengers"
     
@@ -33,6 +47,21 @@ class Passenger(Base):
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"))
     name: Mapped[str]
     aadhaar_no: Mapped[str]
+    
+class PassengerProfile(Base):
+    __tablename__ = "passenger_profiles"
+    
+    id: Mapped[int] = mapped_column(primary_key=True)
+    passenger_id: Mapped[int] = mapped_column(ForeignKey("passengers.id", ondelete="CASCADE"))
+    first_name: Mapped[str]
+    last_name: Mapped[str]
+    last_visited: Mapped[str]
+    last_booking: Mapped[str]
+    updated_on:  Mapped[datetime] = mapped_column(
+        TIMESTAMP(timezone=False),
+        server_default=func.now()
+    )
+
     
 class Booking(Base):
     __tablename__ = "bookings"

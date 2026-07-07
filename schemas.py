@@ -25,6 +25,15 @@ class DriverResponse(BaseModel):
     class Config:
         from_attributes = True
 
+class DriverProfileResponse(BaseModel):
+    id: int
+    name:str
+    aadhaar_no: str
+    car_no_plate: str
+    
+    class Config:
+        from_attributes = True
+
 class PassengerResponse(BaseModel):
     id: int
     name: str
@@ -32,6 +41,17 @@ class PassengerResponse(BaseModel):
     
     class Config:
         from_attributes = True
+
+class PassengerProfileResponse(BaseModel):
+    id: int
+    first_name: str
+    last_name: str
+    aadhaar_no: str
+    
+    class Config:
+        from_attributes = True
+
+
 
 class DriverBookingResponse(BaseModel):
     id: int
