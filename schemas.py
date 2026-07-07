@@ -35,12 +35,14 @@ class PassengerResponse(BaseModel):
 
 class DriverBookingResponse(BaseModel):
     id: int
+    driver_id: int
     pickup_point: str
     destination: str
     booking_progress: str
   
 class PassengerBookingResponse(BaseModel):
     id: int
+    passenger_id: int
     pickup_point: str
     destination: str
     booking_progress: str  
